@@ -1,8 +1,8 @@
 name = "Andrey"
 print(name)
 age = 22
-print(age)
+print('Age', age)
 age = age + 1
-print(age)
+print('New age', age)
 is_student = bool
-print('Is Student', is_student)
+print('Is Student:', bool(is_student))
