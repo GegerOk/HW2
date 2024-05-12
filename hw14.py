@@ -1,3 +1,4 @@
 def Hello():
-    print ("Hello")
-    print ("Hi")
+    print ("Hello world")
+def World():
+    print ("Hello world")
