@@ -15,10 +15,17 @@ class Mamal(animal):
              print (f'{self.name} съел {food.name}')
              self.Fed = True
         else:
-            print (f"{self.name} не стал есть  {food.name}")
+            print (f"{self.name} не стал есть {food.name}")
             self.alive = False
 
 class Predator(animal):
+    def eat(self, food):
+        if food.edible == True:
+             print (f'{self.name} съел {food.name}')
+             self.Fed = True
+        else:
+            print (f"{self.name} не стал есть {food.name}")
+            self.alive = False   
     pass
 
 class Flower(plant):
@@ -27,10 +34,13 @@ class Flower(plant):
 class Fruit(plant):
     pass
 
-Cat = Mamal("Кот")
 apple = Fruit ("Яблоко", True)
 Krapiva = Flower("Крапива", False)
-Cat.eat (apple)
-print (Cat.alive)
-Cat.eat (Krapiva)
-print (Cat.alive)
+
+Svin = Mamal("Свин")
+Svin.eat (apple)
+print (Svin.alive)
+
+Wolf = Predator("Волк")
+Wolf.eat (Krapiva)
+print (Wolf.alive)
