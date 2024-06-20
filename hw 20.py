@@ -1,4 +1,3 @@
-total = 0
 class Building:
     total = 0
     def __init__ (self):
