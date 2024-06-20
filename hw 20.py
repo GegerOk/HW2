@@ -1,11 +1,9 @@
+total = 0
 class Building:
-    def __init__ (self, number):
-        print (Building)
+    total = 0
+    def __init__ (self):
+        Building.total += 1
+        print (f'{Building.total}')
 
-    def total_up (self):
-        for i in range (1, 41):
-            print (i)
-            self.number =+1
-
-building = Building (1)
-building.total_up()
+for i in range (40):
+    building = Building()
