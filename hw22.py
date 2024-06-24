@@ -3,7 +3,7 @@ class Vehicle():
 
     def __init__(self, owner, model, engine_power, color):
         self.owner = owner
-        self.model = model
+        self.__model = model
         self.__engine_power = engine_power
         self.__color = color
 
