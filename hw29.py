@@ -1,21 +1,26 @@
-class ProceedException (Exception):
-    def wrong_word(a):
-        try:
-            if a == 'Tarabarshina':
-                raise Exception (f'Нельзя писать "{a}"!')
-        except ProceedException as e:
-            print('Возникла ошибка {e}, но была перехвачена')
+class InvalidDataException(Exception):
+    def __init__(self, message):
+        self.message = message
 
-Pro = ProceedException
-Pro.wrong_word ('Tarabarshina')
+class ProcessingException(Exception):
+    pass
 
-class InvalidDataException (Exception):
-    def wrong_word(a):
-        try:
-            if a == 'Гэги':
-                raise Exception (f'Нельзя писать "{a}"!')
-        except InvalidDataException as e:
-            print('Возникла ошибка {e}, но была перехвачена')
+def func(a):
+    if a == 'Tarabarshina':
+        raise InvalidDataException(message=(f'Нельзя писать "{a}"!' ))
+    elif a == 'Гэги':
+        raise ProcessingException(f'Ни в коем случае, никогда не пиши "{a}"')
 
-Inv = InvalidDataException
-Inv.wrong_word ('Гэги')
+try:
+    func('Tarabarshina')
+except InvalidDataException as inv:
+    print(f'Ошибка была перехвачена, {inv.message}')
+except ProcessingException as proc:
+    print(f'Ошибка была перехвачена')
+
+try:
+    func('Гэги')
+except InvalidDataException as inv:
+    print('Ошибка была перехвачена')
+except ProcessingException as proc:
+    print(f'Ошибка была перехвачена')
