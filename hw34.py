@@ -1,7 +1,7 @@
 def is_prime(func):
     def wrapper( * args):
         result = func( * args)
-        a = 3
+        a = 2
         while a != result:
             a += 1
             if result % a == 0:
