@@ -1,29 +1,32 @@
 import threading
-import time
+from threading import Lock
 
-class Knights(threading.Thread):
-    def __init__(self, name, skill):
-        super().__init__()
-        self.name = name
-        self.skill = skill
+lock = Lock()
 
-    def enemy(self):
-        damage = 100
-        day = 0
-        while damage > 0:
-            day += 1
-            damage = damage - self.skill
-            print(f'День: {day}, {self.name} оставил {damage} врагов')
-            time.sleep(1)
-            if damage <= 0:
-                print(f'Рыцарь {self.name} одержал победу спустя {day} дней!')
+class BankAccount():
+    def __init__(self):
+        self.balance = 1000
+        print(self.balance)
 
-    def run(self):
-        self.enemy()
+    def up(self, summ):
+        with lock:
+            for i in range(5):
+                self.balance += summ
+                print(self.balance)
 
-Knight_1 = Knights('Sir Lancelot', 10)
-Knight_2 = Knights('Sir Galahad', 20)
-Knight_1.start()
-Knight_2.start()
-Knight_1.join()
-Knight_2.join()
+    def down(self, summ):
+        with lock:
+            for i in range(5):
+                self.balance -= summ
+                print(self.balance)
+
+account = BankAccount()
+
+thr1 = threading.Thread(target=account.up, args=(200,))
+thr2 = threading.Thread(target=account.down, args=(50,))
+
+thr1.start()
+thr2.start()
+
+thr1.join()
+thr2.join()
