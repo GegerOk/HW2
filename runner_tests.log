@@ -1,0 +1,9 @@
+2024-08-11 23:28:03,592 / WARNING / Произошла ошибка в блоке run
+Traceback (most recent call last):
+  File "c:\Users\user\Desktop\Python\hw44.py", line 77, in test_run
+    Nspeed = Runner('NSala', -5)
+             ^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\user\Desktop\Python\hw44.py", line 17, in __init__
+    raise ValueError(f'Скорость не может быть отрицательной, сейчас {speed}')
+ValueError: Скорость не может быть отрицательной, сейчас -5
+2024-08-11 23:28:03,593 / INFO / walk выполнено успешно
