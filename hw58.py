@@ -2,8 +2,7 @@ from fastapi import FastAPI, Path, HTTPException
 from pydantic import BaseModel
 app = FastAPI()
 
-global users
-users = []
+users = {'1': 'Имя: Example, возраст: 18'}
 
 
 class User(BaseModel):
@@ -12,32 +11,30 @@ class User(BaseModel):
     age: int 
 
 @app.get ('/users')
-async def base() -> list[User]:
+async def base() -> dict:
     return users
 
 @app.post('/user/{username}/{age}')
-async def add_user(username, age) -> dict:
+async def add_user(username, age) -> str:
     if users:
-        curent_id=(max(users.id for users in users) +1)
+        current_id=str(int(max(users, key=int)) +1)
     else:
-        curent_id = 1
-    user = User(id = curent_id, username=username, age=age)
-    users.append(user)
-    return user.dict()
+        current_id = 1
+    users[current_id] = f'Имя: {username}, возраст: {age}'
+    return f'User {current_id} is registred'
 
 @app.put('/user/{user_id}/{username}/{age}')
-async def edit_user(user_id, username, age) -> dict:
+async def edit_user(user_id, username, age) -> str:
     try:
-        user = User(id = user_id, username = username, age = age)
-        users[int(user_id) -1] = user
+        users[int(user_id)] = f'Имя: {username}, возраст: {age}'
     except IndexError:
         raise HTTPException(status_code= 404, detail= 'User was not found')
-    return user.dict()
+    return f'The user {user_id} is registred'
 
 @app.delete('/user/{user_id}')
-async def delete_user(user_id) -> list[User]:
+async def delete_user(user_id) -> str:
     try:
-        users.pop(int(user_id)-1)
+        del users[user_id]
     except IndexError:
         raise HTTPException (status_code= 404, detail= 'User was not found')
-    return users
+    return f'User {user_id} has been deleted'
