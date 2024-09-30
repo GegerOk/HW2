@@ -1,3 +1,4 @@
+from typing import Annotated
 from fastapi import FastAPI, Path, HTTPException
 from pydantic import BaseModel
 app = FastAPI()
@@ -15,7 +16,7 @@ async def base() -> dict:
     return users
 
 @app.post('/user/{username}/{age}')
-async def add_user(username, age) -> str:
+async def add_user(username: Annotated [str, Path(min_length=3, max_length=15, description= 'Enter your username', example= 'Gregor')], age: Annotated[int, Path(ge=18, le= 99, description= 'Enter your age', example= 21)]) -> str:
     if users:
         current_id=str(int(max(users, key=int)) +1)
     else:
@@ -24,7 +25,7 @@ async def add_user(username, age) -> str:
     return f'User {current_id} is registred'
 
 @app.put('/user/{user_id}/{username}/{age}')
-async def edit_user(user_id, username, age) -> str:
+async def edit_user(user_id, username: Annotated [str, Path(min_length=3, max_length=15, description= 'Enter your username', example= 'Gregor')], age: Annotated[int, Path(ge=18, le= 99,description= 'Enter your age', example= 21)]) -> str:
     try:
         users[int(user_id)] = f'Имя: {username}, возраст: {age}'
     except IndexError:
