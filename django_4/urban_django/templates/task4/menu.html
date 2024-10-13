@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} Главная страница {% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+<body>
+    <pagename>
+        {% block pagename %}
+            <h1> Here pagename </h1>
+        {%endblock%}
+    </pagename>
+    <menu>
+        {% block menu %}
+            <ul>
+                <li><a href= '/cats_page'>Страница с котиками</a></li>
+                <li><a href= "/trash_page">Бесполезная страничка</a></li>
+                <li><a href= "base">Меню</a></li>
+            </ul>
+        {%endblock%}
+    </menu>
+    <content>
+        {% block content %}
+            <h1> Тут будет контент </h1>
+        {%endblock%}
+    </content>
+
+</body>
+</html>
