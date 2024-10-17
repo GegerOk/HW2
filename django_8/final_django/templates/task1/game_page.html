@@ -1,0 +1,27 @@
+{% extends "task1/menu.html" %}
+
+{% block pagename %}
+    {{block.super}}
+    <h1> Магазин игр </h1>
+{% endblock  %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магазин игр</title>
+</head>
+
+<body>
+    {%block content%}
+        {{block.super}}
+        {% for game in Games %}
+            <h1>Название: {{game.title}}, описание: {{game.description}}, цена:{{game.cost}}</h1><button>Купить</button>
+        {% endfor %}
+    {%endblock%}
+</body>
+<body>
+    {% block menu %}
+        {{block.super}}
+    {% endblock  %}
+</body>
+</html>
