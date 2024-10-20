@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список постов</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Список постов</h1>
+    <div class="header-text">
+        <p><small>Ультра тестовая версия</small></p>
+        <h2>Онлайн пользователи</h2>
+    <ul>
+        {% for user in online_users %}
+            <li>{{ user.username }}</li>
+        {% empty %}
+            <li>Нет онлайн пользователей.</li>
+        {% endfor %}
+    </ul>
+    </div>
+    {% if username %}
+    <p>Вы вошли как {{ username }}</p>
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <input type="submit" value="Выйти">
+    </form>
+    {% endif %}
+    <form method="get" style="display:inline;">
+        <label for="posts_per_page">Постов на странице:</label>
+        <select name="posts_per_page" id="posts_per_page" onchange="this.form.submit()">
+            <option value="3" {% if posts_per_page == '3' %}selected{% endif %}>3</option>
+            <option value="5" {% if posts_per_page == '5' %}selected{% endif %}>5</option>
+            <option value="10" {% if posts_per_page == '10' %}selected{% endif %}>10</option>
+        </select>
+    </form>
+    <p><button><a href="{% url 'create_post' %}">Создать новый пост</p></a></button>
+    
+    <ul>
+        {% for post in posts %}
+        <li>
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.content }}</p>
+            {% if post.image %}
+                <img src="{{ post.image.url }}" alt="Изображение поста" style="max-width: 300px;">
+            {% endif %}
+            <p><small>{{ post.created_at }} - {{ post.author.username }}</small></p>
+        </li>
+        {% empty %}
+            <li>Нет постов.</li>
+        {% endfor %}
+    </ul>
+
+    <div>
+        <span></span>
+        <span class="pagination">
+            {% if posts.has_previous %}
+                <a href="?page=1&posts_per_page={{ posts_per_page }}"><p>первая<p></a>
+                <a href="?page={{ posts.previous_page_number }}&posts_per_page={{ posts_per_page }}">предыдущая</a>
+            {% endif %}
+            <span>Страница {{ posts.number }} из {{ posts.paginator.num_pages }}</span>
+            {% if posts.has_next %}
+                <a href="?page={{ posts.next_page_number }}&posts_per_page={{ posts_per_page }}">следующая</a>
+                <a href="?page={{ posts.paginator.num_pages }}&posts_per_page={{ posts_per_page }}"><p>последняя</p></a>
+            {% endif %}
+        </span>
+    </div>
+</body>
+</html>

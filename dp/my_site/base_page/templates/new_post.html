@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Создать пост</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Создать новый пост</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="title">Заголовок:</label>
+        <input type="text" id="title" name="title" required>
+
+        <label for="content">Содержание:</label>
+        <textarea id="content" name="content" required></textarea>
+
+        <label for="image">Изображение:</label>
+        <input type="file" id="image" name="image">
+        <input type="submit" value="Создать пост">
+    </form>
+    <a  href ={%url 'posts'%}>Назад</a>
+</body>
+</html>
