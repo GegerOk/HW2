@@ -6,7 +6,8 @@ def personal_sum(numbers):
             result += item
         except TypeError:
             incorrect_data += 1
-
+            print(f'Некорректный тип данных для подсчёта суммы {
+                  incorrect_data}')
     return result, incorrect_data
 
 
@@ -22,6 +23,7 @@ def calculate_average(numbers):
     return average
 
 
+print(personal_sum('1, 2, 3'))
 print(personal_sum([1, 2, 3, 'a', 4, None]))
 print(calculate_average([1, 2, 3, 'a', 4, None]))
 print(calculate_average(123))
